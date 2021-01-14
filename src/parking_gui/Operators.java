@@ -4,44 +4,41 @@ package Parking_GUI;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Scanner;
 
 public class Operators extends Station{
     
-    
-    private final Scanner input = new Scanner(System.in);
-    
+     static String betterPlace;
+     
     
     public void getFreeSpots(){
-        int size=spots.size();
-        
-        ArrayList<String> key = new ArrayList<>(spots.keySet()); 
-        Collections.sort(key); 
-        ArrayList<String> free =new ArrayList<>();
-        
-        int flag =0; //to check if there are free spots or not
-        for(int i=0;i<size;i++)
+        try{
+            ArrayList<String> list=new ArrayList();
+            connect=security.getConnection();
+            query = "select * from totalspots where state = 'true'";
+            st = connect.prepareStatement(query);
+            r=st.executeQuery(query);
+            while(r.next()){
+                list.add(r.getString("place"));
+              }
+               betterPlace=list.get(0);
+           }
+      
+        catch(SQLException ex)
         {
-            if(spots.get(key.get(i)) == true)
-            {
-                flag=1;
-                free.add(key.get(i));
-            }        
-        }   
-        if(flag==0)
-            System.out.println("sorry there is no free spot");
-        else
-        {
-            System.out.println("the free spots are :");
-            for (int i = 0; i < free.size(); i++)  
-            {
-                System.out.print(free.get(i) + " ");
+            System.out.println(ex.getMessage());
+        }
+        finally{
+            try{
+                connect.close();
+                st.close();
+                
             }
-              
-           System.out.println("\nwhat do you think of the place (\"" + free.get(0) +"\")? " + "I think it's better");
-        }      
-           
+            catch(SQLException ex)
+            {
+                System.out.println(ex.getMessage());
+            }
+            
+        }
     }
     
     public boolean addCustomer(String place,String plateNumber){
@@ -67,20 +64,17 @@ public class Operators extends Station{
         }
         return false;
     }
-    public void removeCustomer(Customer c){
-        c.setEndDateH(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
-        c.setEndDateM(Calendar.getInstance().get(Calendar.MINUTE));
+    public void removeCustomer(int id){
         String place = null;
         try {
             connect = security.getConnection();
-            query = "select place from customers where id_customer = '"+c.getId()+"'";
+            query = "select place from customers where id_customer = '"+id+"'";
             st = connect.prepareStatement(query);
             r=st.executeQuery(query);
             while (r.next()) {                
                 place = r.getString("place");
             }
-            spots.replace(place, Boolean.TRUE);
-            query = "delete from customers where id_customer = '"+c.getId()+"'";
+            query = "delete from customers where id_customer = '"+id+"'";
             st.execute(query);
             query="update totalspots set state = 'true' where place = '"+place+"'";
             st.execute(query); 
@@ -95,20 +89,8 @@ public class Operators extends Station{
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
-        }
-  
-        
+        }      
     }
-    
-    
-    public int totalParkingHours(Customer c){
-        if (c.getEndDateM() >= 30)
-            return (c.getEndDateH()-c.getStartDateH()+1);
-        else
-            return (c.getEndDateH()-c.getStartDateH());
-
-    }    
- 
    public static int getCustomerId(){ 
          int f=0;
         try {

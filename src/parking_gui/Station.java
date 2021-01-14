@@ -5,12 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public abstract class Station {
-    
-    
-    public static HashMap<String,Boolean> spots = new HashMap();
+   
     protected int operatorId;
     protected String operatorUsername;
     private int adminId;
@@ -24,7 +21,7 @@ public abstract class Station {
     static Statement st;
     static String query;
     static ResultSet r;
-    private static ArrayList<String> key = new ArrayList(); 
+    private static ArrayList<String> spots = new ArrayList(); 
     
     public void setOperatorId(int id){
         this.operatorId=id;
@@ -75,28 +72,13 @@ public abstract class Station {
         
         for (int i = 0; i < numberOfFloors; i++) {
             for (int j = 1; j <= spotsInFloor; j++) {
-                spots.put((char)(i+65)+""+j,true);
-                key.add((char)(i+65)+""+j);
+                spots.add((char)(i+65)+""+j);
             }
         }
         createDb();
     }
 
-    public static void retrieveSpots(){
-        try {
-            connect = security.getConnection();
-            query = "select * from totalspots";
-            st = connect.prepareStatement(query);
-            r = st.executeQuery(query);
-            while(r.next()){
-                Station.spots.put(r.getString("place"),Boolean.getBoolean(r.getString("state")));
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-       
-    }
-    
+
 
             
     public static void createDb()
@@ -105,7 +87,7 @@ public abstract class Station {
             connect=security.getConnection();
             for(int i=0;i<spots.size();i++)
             {
-                query="insert into totalspots values('"+key.get(i)+"','true')";
+                query="insert into totalspots values('"+spots.get(i)+"','true')";
                 st=connect.prepareStatement(query);
                 st.execute(query);
             }
@@ -133,7 +115,7 @@ public abstract class Station {
             connect=security.getConnection();
             for(int i=0;i<spots.size();i++)
             {
-                query="insert into totalspots values('"+key.get(i)+"','true')";
+                query="insert into totalspots values('"+spots.get(i)+"','true')";
                 st=connect.prepareStatement(query);
                 st.execute(query);
             }

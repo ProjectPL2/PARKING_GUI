@@ -116,7 +116,7 @@ public class Login extends javax.swing.JFrame {
                  if(Parking.checkIdOperator(Integer.parseInt(id.getText()))){
                         OperatorId = Integer.parseInt(id.getText());
                         OperatorValidity d=new OperatorValidity();
-                        d.setTitle("Admin Validity");
+                        d.setTitle("Operator Validity");
                         d.setVisible(true);
                         d.setSize(570,380);
                         d.setResizable(false);

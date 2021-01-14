@@ -20,7 +20,7 @@ public class EntryStation extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         panel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        advise = new javax.swing.JLabel();
         panel2 = new javax.swing.JPanel();
         add = new javax.swing.JLabel();
         panel3 = new javax.swing.JPanel();
@@ -33,15 +33,18 @@ public class EntryStation extends javax.swing.JFrame {
         panel1.setBackground(new java.awt.Color(197, 109, 21));
         panel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("            Monitor Free Spots And Advise Customer");
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        advise.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        advise.setForeground(new java.awt.Color(255, 255, 255));
+        advise.setText("            Monitor Free Spots And Advise Customer");
+        advise.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                adviseMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel2MouseEntered(evt);
+                adviseMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel2MouseExited(evt);
+                adviseMouseExited(evt);
             }
         });
 
@@ -49,11 +52,11 @@ public class EntryStation extends javax.swing.JFrame {
         panel1.setLayout(panel1Layout);
         panel1Layout.setHorizontalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(advise, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+            .addComponent(advise, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
         );
 
         panel2.setBackground(new java.awt.Color(197, 109, 21));
@@ -160,13 +163,13 @@ public void resetColor(JPanel p1)
 {
     p1.setBackground(new Color(197,109,21));
 }
-    private void jLabel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseEntered
+    private void adviseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adviseMouseEntered
        setColor(panel1);
-    }//GEN-LAST:event_jLabel2MouseEntered
+    }//GEN-LAST:event_adviseMouseEntered
 
-    private void jLabel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseExited
+    private void adviseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adviseMouseExited
        resetColor(panel1);
-    }//GEN-LAST:event_jLabel2MouseExited
+    }//GEN-LAST:event_adviseMouseExited
 
     private void addMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseEntered
          setColor(panel2);
@@ -208,6 +211,18 @@ public void resetColor(JPanel p1)
         }
     }//GEN-LAST:event_addMouseClicked
 
+    private void adviseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adviseMouseClicked
+      if(evt.getSource()==advise){
+          AdviseCustomer c=new AdviseCustomer();
+            c.setTitle("Advise Customer");
+            c.setVisible(true);
+            c.setSize(400,300);
+            c.setResizable(false);
+            c.setLocation(400,150);
+            this.dispose();
+      }
+    }//GEN-LAST:event_adviseMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -245,8 +260,8 @@ public void resetColor(JPanel p1)
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel add;
+    private javax.swing.JLabel advise;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel panel1;
     private javax.swing.JPanel panel2;

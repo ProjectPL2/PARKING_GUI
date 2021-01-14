@@ -7,126 +7,127 @@ import java.util.Scanner;
 public class admin_DDL extends Station {
    
     
-    Scanner input = new Scanner(System.in);
-    public void insertOperator(){
-        try{
-            connect=security.getConnection();           
-            System.out.println("Enter name: ");
-            setOperatorUsername(input.next());
-            System.out.println("Enter Start work shift: ");
-            setStartShift(input.nextInt());
-            System.out.println("Enter End work shift: ");
-            setEndShift(input.nextInt());
-            query = "insert into operators (username ,start_shift ,end_shift) values ('"+getOperatorUsername()+
-                    "','"+ getStartShift()+"','"+ getEndShift()+"')";
-            st = connect.prepareStatement(query);
-            st.execute(query);
-            System.out.println("INSERTED");
-        } catch(SQLException ex){
-            System.out.println(ex.getMessage());
-        }
-        finally{
-            try{
-                connect.close();
-                st.close();
-                }
-            catch(SQLException ex){
-                System.out.println(ex.getMessage());
-            }
-        }
-    }
-  
-   void updateOperator(){
-        try{
-            ArrayList<element1> list=new ArrayList();
-            connect=security.getConnection();
-            System.out.println("Enter ID to Update: ");
-            int id = input.nextInt();
-            query="select * from operators where id = '"+id+"'";
-              st= connect.prepareStatement(query);
-            r=st.executeQuery(query);
-        
-             if(r.next()){
-            System.out.println("Enter new start shift: ");
-            setStartShift(input.nextInt());
-            System.out.println("Enter new end shift: ");
-           setEndShift(input.nextInt());
-          
-            while(r.next()){
-                list.add(new element1(r.getInt("id"),r.getString("username"),r.getInt("start_shift"),r.getInt("end_shift")));
-            }
-            for(int i=0;i<list.size();i++)
-            {
-                if(list.get(i).id==id)
-                {
-                    query = "update operators set start_shift ='"+getStartShift()+"',end_shift ='"+getEndShift()+"' where id=('"+id+"')";
-                    st = connect.prepareStatement(query);
-                    st.execute(query);
-                    System.out.println("UPDATED");
-                }
-            }
-        } 
-        else
-            System.out.println("This Id Not Exist");
-        }
-        catch(SQLException ex){
-        System.out.println(ex.getMessage());
-        } 
-        finally{
-        try{
-            connect.close();
-           st.close();
-            }
-        catch(SQLException ex){
-        System.out.println(ex.getMessage());
-            }
-        }
-    }
-   public void deleteOperator(){
-        try{
-            ArrayList<element1> list=new ArrayList();
-            connect=security.getConnection();
-            System.out.println("Enter ID to Delete: ");
-            int id = input.nextInt();
-            query="select* from operators where id = '"+id+"'";
-            st= connect.prepareStatement(query);
-            r=st.executeQuery(query);
-        
-            if(r.next()){
-            while(r.next()){
-                list.add(new element1(r.getInt("id"),r.getString("username"),r.getInt("start_shift"),r.getInt("end_shift")));
-            }
-            for(int i=0;i<list.size();i++)
-            {
-                if(list.get(i).id==id)
-                {
-                    query = "delete from operators where id ='"+id+"'";
-                    st = connect.prepareStatement(query);
-                    st.execute(query);
-                    System.out.println("DELETED");
-                }
-                
-            }
-               
-        } 
-        else
-            System.out.println("This Id Not Exist");
-        }
-        catch(SQLException ex){
-        System.out.println(ex.getMessage());
-        } 
-        finally{
-        try{
-            connect.close();
-           st.close();
-           r.close();
-            }
-        catch(SQLException ex){
-        System.out.println(ex.getMessage());
-            }
-        }
-       
-   }
+   
+//    public void insertOperator(){
+//        try{
+//            connect=security.getConnection();           
+//            System.out.println("Enter name: ");
+//            setOperatorUsername(input.next());
+//            System.out.println("Enter Start work shift: ");
+//            setStartShift(input.nextInt());
+//            System.out.println("Enter End work shift: ");
+//            setEndShift(input.nextInt());
+//            query = "insert into operators (username ,start_shift ,end_shift) values ('"+getOperatorUsername()+
+//                    "','"+ getStartShift()+"','"+ getEndShift()+"')";
+//            st = connect.prepareStatement(query);
+//            st.execute(query);
+//            System.out.println("INSERTED");
+//        } catch(SQLException ex){
+//            System.out.println(ex.getMessage());
+//        }
+//        finally{
+//            try{
+//                connect.close();
+//                st.close();
+//                }
+//            catch(SQLException ex){
+//                System.out.println(ex.getMessage());
+//            }
+//        }
+//    }
+//  
+//   void updateOperator(){
+//        try{
+//            ArrayList<element1> list=new ArrayList();
+//            connect=security.getConnection();
+//            System.out.println("Enter ID to Update: ");
+//            int id = input.nextInt();
+//            query="select * from operators where id = '"+id+"'";
+//              st= connect.prepareStatement(query);
+//            r=st.executeQuery(query);
+//        
+//             if(r.next()){
+//            System.out.println("Enter new start shift: ");
+//            setStartShift(input.nextInt());
+//            System.out.println("Enter new end shift: ");
+//           setEndShift(input.nextInt());
+//          
+//            while(r.next()){
+//                list.add(new element1(r.getInt("id"),r.getString("username"),r.getInt("start_shift"),r.getInt("end_shift")));
+//            }
+//            for(int i=0;i<list.size();i++)
+//            {
+//                if(list.get(i).id==id)
+//                {
+//                    query = "update operators set start_shift ='"+getStartShift()+"',end_shift ='"+getEndShift()+"' where id=('"+id+"')";
+//                    st = connect.prepareStatement(query);
+//                    st.execute(query);
+//                    System.out.println("UPDATED");
+//                }
+//            }
+//        } 
+//        else
+//            System.out.println("This Id Not Exist");
+//        }
+//        catch(SQLException ex){
+//        System.out.println(ex.getMessage());
+//        } 
+//        finally{
+//        try{
+//            connect.close();
+//           st.close();
+//            }
+//        catch(SQLException ex){
+//        System.out.println(ex.getMessage());
+//            }
+//        }
+//    }
+//   public void deleteOperator(){
+//        try{
+//            ArrayList<element1> list=new ArrayList();
+//            connect=security.getConnection();
+//            System.out.println("Enter ID to Delete: ");
+//            int id = input.nextInt();
+//            query="select* from operators where id = '"+id+"'";
+//            st= connect.prepareStatement(query);
+//            r=st.executeQuery(query);
+//        
+//            if(r.next()){
+//            while(r.next()){
+//                list.add(new element1(r.getInt("id"),r.getString("username"),r.getInt("start_shift"),r.getInt("end_shift")));
+//            }
+//            for(int i=0;i<list.size();i++)
+//            {
+//                if(list.get(i).id==id)
+//                {
+//                    query = "delete from operators where id ='"+id+"'";
+//                    st = connect.prepareStatement(query);
+//                    st.execute(query);
+//                    System.out.println("DELETED");
+//                }
+//                
+//            }
+//               
+//        } 
+//        else
+//            System.out.println("This Id Not Exist");
+//        }
+//        catch(SQLException ex){
+//        System.out.println(ex.getMessage());
+//        } 
+//        finally{
+//        try{
+//            connect.close();
+//           st.close();
+//           r.close();
+//            }
+//        catch(SQLException ex){
+//        System.out.println(ex.getMessage());
+//            }
+//        }
+//       
+//   }
+   /*
     public void viewAllSpots()
     {  
         int size=spots.size();       
@@ -173,6 +174,8 @@ public class admin_DDL extends Station {
            System.out.print("\n");
         }                     
     }
+*/
+   
     void viewParkedCar(){
         try{
             ArrayList<element> list=new ArrayList();
@@ -210,12 +213,13 @@ public class admin_DDL extends Station {
             }
         }
     }
-    public void report(Customer e){
+    
+    public void report(int id){
          try {
           Operators o=new Operators();
             connect=security.getConnection();
             query="select operators.id,username,start_shift,end_shift,plate_number from customers join operators "
-                    + " on customers.id_operator=operators.id where id_customer='"+e.getId()+"'";
+                    + " on customers.id_operator=operators.id where id_customer='"+id+"'";
             st=connect.prepareStatement(query);
             r=st.executeQuery(query);
             if(r.next()){
@@ -223,7 +227,7 @@ public class admin_DDL extends Station {
             
                    query="insert into old_customers values(id_operator='"+r.getInt("operators.id")+"',"
                            + " username_operator='"+r.getString("username")+"',start_shift='"+r.getInt("start_shift")+"',"
-                           + " end_shift='"+r.getInt("end_shift")+"',plate_number='"+r.getString("plate_number")+"',cost='"+10*o.totalParkingHours(e)+"'";
+                           + " end_shift='"+r.getInt("end_shift")+"',plate_number='"+r.getString("plate_number")+"',cost='"+10+"'";
                }         
              }
          }

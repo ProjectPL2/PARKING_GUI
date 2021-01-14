@@ -100,7 +100,8 @@ public class Customer extends Station{
         System.out.println("|                                                    |");
         System.out.println("-----------------------------------------------------");
     }
-   
+  
+    /*
      public void payment(int id){
         try {
             Operators o=new Operators();
@@ -140,5 +141,5 @@ public class Customer extends Station{
             Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+*/
 }
