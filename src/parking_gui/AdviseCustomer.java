@@ -97,7 +97,7 @@ public class AdviseCustomer extends javax.swing.JFrame {
 
     private void showActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showActionPerformed
        if(evt.getSource()==show){
-         Operators o=new Operators();
+        Operators o=new Operators();
         o.getFreeSpots();
         String place=o.betterPlace;
         PlaceName.setText(place);

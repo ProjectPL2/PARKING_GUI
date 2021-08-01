@@ -1,12 +1,8 @@
 
 package Parking_GUI;
-import java.sql.*;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
-    private Connection c;
-    private PreparedStatement st;
-    private String query;
     
     static int OperatorId;
     public Login() {
@@ -99,8 +95,8 @@ public class Login extends javax.swing.JFrame {
 
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
        if(evt.getSource()==Login){
-           if(Parking.checkUsernameAdmin(username.getText())){
-               if(Parking.checkIdAdmin(Integer.parseInt(id.getText()))){
+           if(Station.checkUsernameAdmin(username.getText())){
+               if(Station.checkIdAdmin(Integer.parseInt(id.getText()),username.getText())){
                        AdminValidity d=new AdminValidity();
                         d.setTitle("AdminValidity");
                         d.setVisible(true);
@@ -112,8 +108,8 @@ public class Login extends javax.swing.JFrame {
                else
                     JOptionPane.showMessageDialog(this,"Password Incorrect","Error",JOptionPane.ERROR_MESSAGE); 
            }
-           else if(Parking.checkUsernameOperator(username.getText())){
-                 if(Parking.checkIdOperator(Integer.parseInt(id.getText()))){
+           else if(Station.checkUsernameOperator(username.getText())){
+                 if(Station.checkIdOperator(Integer.parseInt(id.getText()),username.getText())){
                         OperatorId = Integer.parseInt(id.getText());
                         OperatorValidity d=new OperatorValidity();
                         d.setTitle("Operator Validity");

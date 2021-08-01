@@ -23,7 +23,7 @@ public class AdminValidity extends javax.swing.JFrame {
         spots = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         panel2 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        total = new javax.swing.JLabel();
         panel3 = new javax.swing.JPanel();
         add = new javax.swing.JLabel();
         panel7 = new javax.swing.JPanel();
@@ -31,7 +31,7 @@ public class AdminValidity extends javax.swing.JFrame {
         panel5 = new javax.swing.JPanel();
         shift = new javax.swing.JLabel();
         panel6 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
+        parked = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,15 +72,18 @@ public class AdminValidity extends javax.swing.JFrame {
         panel2.setBackground(new java.awt.Color(197, 109, 21));
         panel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("             View Total Spots");
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+        total.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        total.setForeground(new java.awt.Color(255, 255, 255));
+        total.setText("             View Total Spots");
+        total.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                totalMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel4MouseEntered(evt);
+                totalMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel4MouseExited(evt);
+                totalMouseExited(evt);
             }
         });
 
@@ -88,11 +91,11 @@ public class AdminValidity extends javax.swing.JFrame {
         panel2.setLayout(panel2Layout);
         panel2Layout.setHorizontalGroup(
             panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(total, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panel2Layout.setVerticalGroup(
             panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(total, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         panel3.setBackground(new java.awt.Color(192, 109, 21));
@@ -185,15 +188,18 @@ public class AdminValidity extends javax.swing.JFrame {
         panel6.setBackground(new java.awt.Color(197, 109, 21));
         panel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("      View Parked Cars Report");
-        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+        parked.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        parked.setForeground(new java.awt.Color(255, 255, 255));
+        parked.setText("      View Parked Cars Report");
+        parked.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                parkedMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel6MouseEntered(evt);
+                parkedMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel6MouseExited(evt);
+                parkedMouseExited(evt);
             }
         });
 
@@ -201,11 +207,11 @@ public class AdminValidity extends javax.swing.JFrame {
         panel6.setLayout(panel6Layout);
         panel6Layout.setHorizontalGroup(
             panel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(parked, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panel6Layout.setVerticalGroup(
             panel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(parked, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -272,13 +278,13 @@ public void resetColor(JPanel p1)
         resetColor(panel1);
     }//GEN-LAST:event_spotsMouseExited
 
-    private void jLabel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseEntered
+    private void totalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_totalMouseEntered
         setColor(panel2);
-    }//GEN-LAST:event_jLabel4MouseEntered
+    }//GEN-LAST:event_totalMouseEntered
 
-    private void jLabel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseExited
+    private void totalMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_totalMouseExited
          resetColor(panel2);
-    }//GEN-LAST:event_jLabel4MouseExited
+    }//GEN-LAST:event_totalMouseExited
 
     private void addMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseEntered
         setColor(panel3);
@@ -296,13 +302,13 @@ public void resetColor(JPanel p1)
        resetColor(panel5);
     }//GEN-LAST:event_shiftMouseExited
 
-    private void jLabel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseEntered
+    private void parkedMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_parkedMouseEntered
         setColor(panel6);
-    }//GEN-LAST:event_jLabel6MouseEntered
+    }//GEN-LAST:event_parkedMouseEntered
 
-    private void jLabel6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseExited
+    private void parkedMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_parkedMouseExited
         resetColor(panel6);
-    }//GEN-LAST:event_jLabel6MouseExited
+    }//GEN-LAST:event_parkedMouseExited
 
     private void jLabel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseExited
         resetColor(panel7);
@@ -317,7 +323,7 @@ public void resetColor(JPanel p1)
            ReportOldCustomers re=new  ReportOldCustomers();
             re.setTitle("View Shifts Report With Payment");
             re.setVisible(true);
-            re.setSize(700,350);
+            re.setSize(600,320);
             re.setLocation(400,150);
             this.dispose();
        }
@@ -340,7 +346,7 @@ public void resetColor(JPanel p1)
            show s=new show();
            s.setTitle("Update Or Delete");
            s.setVisible(true);
-           s.setSize(500,350);
+           s.setSize(420,280);
            s.setLocation(400,150);
            s.setResizable(false);
            this.dispose();
@@ -358,6 +364,30 @@ public void resetColor(JPanel p1)
            this.dispose();
        }
     }//GEN-LAST:event_addMouseClicked
+
+    private void totalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_totalMouseClicked
+       if(evt.getSource()==total){
+           ViewTotalSpots s=new ViewTotalSpots();
+           s.setTitle("View Total Spots ");
+           s.setVisible(true);
+           s.setSize(420,450);
+           s.setLocation(400,150);
+           s.setResizable(false);
+           this.dispose();
+       }
+    }//GEN-LAST:event_totalMouseClicked
+
+    private void parkedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_parkedMouseClicked
+       if(evt.getSource()==parked){
+           ViewParkedCars s=new ViewParkedCars();
+           s.setTitle("View Parked Cars");
+           s.setVisible(true);
+           s.setSize(500,320);
+           s.setLocation(400,150);
+           s.setResizable(false);
+           this.dispose();
+       }
+    }//GEN-LAST:event_parkedMouseClicked
      
     /**
      * @param args the command line arguments
@@ -398,8 +428,6 @@ public void resetColor(JPanel p1)
     private javax.swing.JLabel add;
     private javax.swing.JLabel edit;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel panel1;
     private javax.swing.JPanel panel2;
@@ -407,7 +435,9 @@ public void resetColor(JPanel p1)
     private javax.swing.JPanel panel5;
     private javax.swing.JPanel panel6;
     private javax.swing.JPanel panel7;
+    private javax.swing.JLabel parked;
     private javax.swing.JLabel shift;
     private javax.swing.JLabel spots;
+    private javax.swing.JLabel total;
     // End of variables declaration//GEN-END:variables
 }

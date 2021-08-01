@@ -63,7 +63,7 @@ public class AddOperators extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(204, 255, 255));
         jButton2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton2.setText("EXIT");
+        jButton2.setText("BACK");
         jButton2.setBorderPainted(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,9 +89,8 @@ public class AddOperators extends javax.swing.JFrame {
                         .addGap(38, 38, 38)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(end_shift, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(start_shift, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                        .addComponent(username)))
+                    .addComponent(start_shift, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                    .addComponent(username))
                 .addGap(26, 26, 26))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(56, 56, 56)
@@ -139,14 +138,19 @@ public class AddOperators extends javax.swing.JFrame {
             int result=st.executeUpdate(query);
             if (result==1) {
                 JOptionPane.showMessageDialog(null, "INSERTED SUCCESSFULLY", "Success", JOptionPane.INFORMATION_MESSAGE);
-                this.dispose();
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "MySQL Connector Not Found!!","Error",JOptionPane.ERROR_MESSAGE);        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        System.exit(0);
+        AdminValidity d=new AdminValidity();
+        d.setTitle("AdminValidity");
+        d.setVisible(true);
+        d.setSize(585,400);
+        d.setResizable(false);
+        d.setLocation(450,200);
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

@@ -1,21 +1,58 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package parking_gui;
 
-/**
- *
- * @author hp
- */
-public class ViewTotalSpots extends javax.swing.JFrame {
+package Parking_GUI;
 
-    /**
-     * Creates new form ViewTotalSpots
-     */
+import java.sql.*;
+
+import javax.swing.table.DefaultTableModel;
+
+
+public final class ViewTotalSpots extends javax.swing.JFrame {
+   private Connection connect;
+    private Statement st;
+    private String query;
+    private ResultSet r;
+   
     public ViewTotalSpots() {
+        
         initComponents();
+        getFreeSpots();
+        getBusySpots();
+    }
+    
+   private void getFreeSpots()
+    {
+        try {
+            DefaultTableModel t1 = new DefaultTableModel();
+            freeSpots.setModel(t1);
+            t1.addColumn("Free Spots");
+            connect = security.getConnection();
+            query = "select place from totalspots where state = 'true'";
+            st = connect.prepareStatement(query);
+            r = st.executeQuery(query);
+            while (r.next()) {                
+                t1.addRow(new Object[]{r.getString("place")});
+            } 
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    private void getBusySpots()
+    {
+        try {
+            DefaultTableModel t2 = new DefaultTableModel();
+            busySpots.setModel(t2);
+            t2.addColumn("Busy Spots");
+            connect = security.getConnection();
+            query = "select place from totalspots where state = 'false'";
+            st = connect.prepareStatement(query);
+            r = st.executeQuery(query);
+            while (r.next()) {                
+                t2.addRow(new Object[]{r.getString("place")});
+            } 
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     /**
@@ -27,21 +64,123 @@ public class ViewTotalSpots extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        freeSpots = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        busySpots = new javax.swing.JTable();
+        back = new javax.swing.JButton();
+        exit = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jScrollPane1.setEnabled(false);
+        jScrollPane1.setFocusable(false);
+        jScrollPane1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+
+        freeSpots.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        freeSpots.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        freeSpots.setEnabled(false);
+        jScrollPane1.setViewportView(freeSpots);
+
+        busySpots.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        busySpots.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        busySpots.setEnabled(false);
+        jScrollPane2.setViewportView(busySpots);
+
+        back.setBackground(new java.awt.Color(153, 153, 153));
+        back.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        back.setText("Back");
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+        });
+
+        exit.setBackground(new java.awt.Color(153, 153, 153));
+        exit.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        exit.setText("Exit");
+        exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(19, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(48, 48, 48))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
+        if(evt.getSource()==exit){
+          System.exit(0);
+      }
+    }//GEN-LAST:event_exitActionPerformed
+
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+        if(evt.getSource()==back){
+           AdminValidity d=new AdminValidity();
+           d.setTitle("Admin Validity");
+           d.setVisible(true);
+           d.setSize(585,400);
+           d.setResizable(false);
+           d.setLocation(400,150);
+           this.dispose();
+       }
+    }//GEN-LAST:event_backActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +218,11 @@ public class ViewTotalSpots extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton back;
+    private javax.swing.JTable busySpots;
+    private javax.swing.JButton exit;
+    private javax.swing.JTable freeSpots;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

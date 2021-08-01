@@ -1,73 +1,109 @@
 package Parking_GUI;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public abstract class Station {
    
-    protected int operatorId;
-    protected String operatorUsername;
-    private int adminId;
-    private String adminUsername;
-    private int startShift;
-    private int endShift;
+    
     static Connection connect;
-    static int numberOfFloors;
-    static int numberOfSpots;
-    static int allSpots;
-    static Statement st;
+    static PreparedStatement st;
     static String query;
     static ResultSet r;
-    private static ArrayList<String> spots = new ArrayList(); 
+    private static final ArrayList<String> spots = new ArrayList(); 
     
-    public void setOperatorId(int id){
-        this.operatorId=id;
-    }
-    
-    public void setAdminId(int id){
-        this.adminId=id;
-    }
-    
-    public void setOperatorUsername(String username){
-        this.operatorUsername=username;
-    }
-    
-    public void setAdminUsername(String username){
-        this.adminUsername=username;
-    }
-    public int getOperatorId(){
-        return this.operatorId;
-    }
-    
-    public int getAdminId(){
-        return this.adminId;
-    }
-    
-    public String getOperatorUsername(){
-        return this.operatorUsername;
-    }
-    
-    public String getAdminUsername(){
-        return this.adminUsername;
-    }
-    
-    public void setStartShift(int start){
-        this.startShift=start;
-    }
-    public int getStartShift(){
-        return this.startShift;
-    }
-    
-    public void setEndShift(int end){
-        this.endShift=end;
-    }
-    public int getEndShift(){
-        return this.endShift;
-    }
-    
+    static boolean checkUsernameAdmin(String username){
+       boolean check;
+       try{
+         connect= security.getConnection();
+            query="select username_admin from admin where username_admin='"+username+"'";
+            st=connect.prepareStatement(query);
+            r=st.executeQuery(query);
+         
+            check = r.next();
+          
+       }catch(SQLException ex){
+         check= false;
+       }
+         finally{
+            try{
+                connect.close();
+                st.close();
+                r.close();
+                
+            }
+            catch(SQLException ex)
+            {
+                System.out.println(ex.getMessage());
+            }
+        }
+       return check;
+   }
+   static boolean checkUsernameOperator(String username){
+       boolean check;
+       try{
+         connect= security.getConnection();
+            query="select username from operators where username='"+username+"'";
+            st=connect.prepareStatement(query);
+            r=st.executeQuery(query);
+            check = r.next();
+       }catch(SQLException ex){
+         check= false;
+       }
+         finally{
+            try{
+                connect.close();
+                st.close();
+                r.close();
+                
+            }
+            catch(SQLException ex)
+            {
+                System.out.println(ex.getMessage());
+            }
+        }
+       return check;
+   }
+   static boolean checkIdAdmin(int id,String username){
+       boolean check;
+       try{
+         connect= security.getConnection();
+            query="select id_admin from admin where id_admin='"+id+"' AND username_admin='"+username+"'";
+            st=connect.prepareStatement(query);
+            r=st.executeQuery(query);
+         
+            check = r.next();
+          
+       }catch(SQLException ex){
+         check= false;
+       }
+       return check;
+   }
+   static boolean checkIdOperator(int id,String username){
+       boolean check;
+       try{
+         connect= security.getConnection();
+            query="select id from operators where id='"+id+"' AND username='"+username+"'";
+            st=connect.prepareStatement(query);
+            r=st.executeQuery(query);
+            check = r.next();
+       }catch(SQLException ex){
+         check= false;
+       }
+         finally{
+            try{
+                connect.close();
+                st.close();
+                r.close();
+                
+            }
+            catch(SQLException ex)
+            {
+                System.out.println(ex.getMessage());
+            }
+        }
+       return check;
+   }
     protected static  void createParking(int numberOfFloors,int spotsInFloor){
         
         for (int i = 0; i < numberOfFloors; i++) {
@@ -76,11 +112,8 @@ public abstract class Station {
             }
         }
         createDb();
-    }
-
-
-
-            
+      
+    }      
     public static void createDb()
     {
         try{
@@ -101,6 +134,7 @@ public abstract class Station {
             try{
                 connect.close();
                 st.close();
+                r.close();
                 
             }
             catch(SQLException ex)
@@ -110,31 +144,37 @@ public abstract class Station {
         }
     }  
     
-    public void addPlace(String place){
+
+		public int totalParkingHours(int id){
+      int result=0;
         try{
-            connect=security.getConnection();
-            for(int i=0;i<spots.size();i++)
-            {
-                query="insert into totalspots values('"+spots.get(i)+"','true')";
-                st=connect.prepareStatement(query);
-                st.execute(query);
-            }
-        }
-        catch(SQLException ex)
-        {
-            System.out.println(ex.getMessage());
-        }
-        finally{
-            try{
+        int endDateH = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        int endDateM = Calendar.getInstance().get(Calendar.MINUTE);
+        connect=security.getConnection();
+         query = "select start_dateH from customers where id_customer = '"+id+"'";
+          st = connect.prepareStatement(query);
+           r= st.executeQuery(query);
+           r.next();
+           int startDateH=r.getInt("start_dateH");
+          if (endDateM >= 30)
+           result =endDateH-startDateH+1;
+          else
+            result =endDateH-startDateH;
+       
+     }catch(SQLException ex){
+            System.out.println(ex.getNextException());
+    }
+        finally {
+            try {
                 connect.close();
                 st.close();
-                
-            }
-            catch(SQLException ex)
-            {
+                r.close();
+            } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
-        }
+        }   
+       
+       return result;
     }
 
 }

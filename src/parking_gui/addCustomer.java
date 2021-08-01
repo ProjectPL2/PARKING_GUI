@@ -1,11 +1,10 @@
 package Parking_GUI;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class addCustomer extends javax.swing.JFrame {
@@ -17,16 +16,9 @@ public class addCustomer extends javax.swing.JFrame {
     private ResultSet r;
     public addCustomer() {       
             initComponents();
-            getData();
-            
+            getData();         
     }
     
-    ActionListener taskPerformer = new ActionListener() {
-       @Override
-       public void actionPerformed(ActionEvent evt) {
-           message.setVisible(false);
-       }
-   };
     
     private void getData(){
         try {
@@ -61,7 +53,7 @@ public class addCustomer extends javax.swing.JFrame {
         plateNumber = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         spot = new javax.swing.JLabel();
-        message = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Add Customer");
@@ -115,7 +107,15 @@ public class addCustomer extends javax.swing.JFrame {
         jLabel2.setText("Add custmer in");
 
         spot.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        spot.setText("a3");
+
+        jButton1.setBackground(new java.awt.Color(255, 255, 204));
+        jButton1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        jButton1.setText("Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -124,21 +124,19 @@ public class addCustomer extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(plateNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(message, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(plateNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(spot))))
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(spot))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(49, Short.MAX_VALUE))
+                        .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,11 +151,11 @@ public class addCustomer extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(plateNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(message, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 59, Short.MAX_VALUE))
+                        .addGap(58, 58, 58)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 54, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
@@ -169,24 +167,15 @@ public class addCustomer extends javax.swing.JFrame {
 
     private void addCustomer(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCustomer
 
-       try {
             String plateNumber1 = plateNumber.getText();
             Operators o = new Operators();
             if(o.addCustomer(selectedSpot, plateNumber1)){
-                message.setText("Customer added successfully.");
-                query = "UPDATE totalspots SET state='false' WHERE place='"+selectedSpot+"'";
-                st = connect.prepareStatement(query);
-                st.execute(query);
+                JOptionPane.showMessageDialog(null, "Customer Added Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                message.setText("Customer added failed!!");
+                JOptionPane.showMessageDialog(this,"Faild","Error",JOptionPane.ERROR_MESSAGE);
             }
             getData();
             plateNumber.setText("");
-            new javax.swing.Timer(5000,taskPerformer).start();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-
     }//GEN-LAST:event_addCustomer
 
     private void plateNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plateNumberActionPerformed
@@ -198,6 +187,16 @@ public class addCustomer extends javax.swing.JFrame {
         selectedSpot = (String) freeSpots.getValueAt(freeSpots.getSelectedRow(), 0);
         spot.setText(selectedSpot);
     }//GEN-LAST:event_selectSpot
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        OperatorValidity d=new OperatorValidity();
+                        d.setTitle("Operator Validity");
+                        d.setVisible(true);
+                        d.setSize(570,380);
+                        d.setResizable(false);
+                        d.setLocation(400,150);
+                   this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,10 +236,10 @@ public class addCustomer extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JTable freeSpots;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel message;
     private javax.swing.JTextField plateNumber;
     private javax.swing.JLabel spot;
     // End of variables declaration//GEN-END:variables

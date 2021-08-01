@@ -1,20 +1,21 @@
 
 package Parking_GUI;
 
-import static Parking_GUI.Station.connect;
-import static Parking_GUI.Station.query;
-import static Parking_GUI.Station.r;
-import static Parking_GUI.Station.st;
-import java.sql.SQLException;
+
+import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ReportOldCustomers extends javax.swing.JFrame {
-
-    DefaultTableModel dtm=new DefaultTableModel();
+    static Connection connect;
+    static PreparedStatement st;
+    static ResultSet r;
+    String query;
+   
     public ReportOldCustomers(){
         int count=0;
         try{
+        DefaultTableModel dtm=new DefaultTableModel();
         initComponents();
         old_customers.setModel(dtm);
         dtm.addColumn("id_operator");
@@ -47,6 +48,8 @@ public class ReportOldCustomers extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         old_customers = new javax.swing.JTable();
+        back = new javax.swing.JButton();
+        exit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,19 +66,65 @@ public class ReportOldCustomers extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(old_customers);
 
+        back.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        back.setText("Back");
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+        });
+
+        exit.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        exit.setText("Exit");
+        exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(105, 105, 105)
+                .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62)
+                .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(back)
+                    .addComponent(exit))
+                .addGap(0, 33, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+       if(evt.getSource()==back){
+           AdminValidity d=new AdminValidity();
+           d.setTitle("Admin Validity");
+           d.setVisible(true);
+           d.setSize(585,400);
+           d.setResizable(false);
+           d.setLocation(400,150);
+           this.dispose();
+       }
+    }//GEN-LAST:event_backActionPerformed
+
+    private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
+       if(evt.getSource()==exit){
+           System.exit(0);
+       }
+    }//GEN-LAST:event_exitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -113,6 +162,8 @@ public class ReportOldCustomers extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton back;
+    private javax.swing.JButton exit;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable old_customers;
     // End of variables declaration//GEN-END:variables

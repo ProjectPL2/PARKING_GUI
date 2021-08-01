@@ -1,12 +1,11 @@
-package Parking_GUI;
+package  Parking_GUI;
 
-import java.sql.Statement;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.ResultSet;
+import java.sql.*;
 import javax.swing.JOptionPane;
 
-public class edit extends javax.swing.JFrame {
+
+
+public class edit  extends javax.swing.JFrame {
     static Connection c;
     static Statement st;
     static ResultSet r;
@@ -16,7 +15,7 @@ public class edit extends javax.swing.JFrame {
      */
     static int check;
     public edit(int value) {
-       
+     
         try {
             initComponents();
             id.setText(value+"");
@@ -29,7 +28,7 @@ public class edit extends javax.swing.JFrame {
                 username.setText(r.getString("username"));
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this,"Connection Error","Error",JOptionPane.ERROR_MESSAGE);
+          
         }
     }
 
@@ -58,16 +57,12 @@ public class edit extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel1.setText("ID");
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel2.setText("Operator Name");
 
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel3.setText("Start Shift");
 
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel4.setText("End Shift");
 
         id.setEditable(false);
@@ -77,12 +72,10 @@ public class edit extends javax.swing.JFrame {
         endshift.addActionListener(formListener);
 
         jButton1.setBackground(new java.awt.Color(204, 255, 255));
-        jButton1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jButton1.setText("Save Change");
         jButton1.addActionListener(formListener);
 
         jButton2.setBackground(new java.awt.Color(204, 255, 255));
-        jButton2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jButton2.setText("Delete");
         jButton2.addActionListener(formListener);
 
@@ -91,26 +84,24 @@ public class edit extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(id)
-                        .addComponent(username)
-                        .addComponent(startshift)
-                        .addComponent(endshift, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addGap(69, 69, 69)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(id)
+                            .addComponent(username)
+                            .addComponent(startshift)
+                            .addComponent(endshift, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -136,7 +127,7 @@ public class edit extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton1))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
@@ -160,7 +151,7 @@ public class edit extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      
+       
         try {
             int id_oper = Integer.parseInt(id.getText());
             int start =Integer.parseInt(startshift.getText());
@@ -173,17 +164,17 @@ public class edit extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "UPDATED SUCCESSFULLY", "Success", JOptionPane.INFORMATION_MESSAGE);
                 show user = new show();
                 user.setVisible(true);
-                user.setLocation(400,250);
-                user.setSize(500, 350);
+                user.setLocation(400, 300);
+                user.setSize(420, 280);
                 this.dispose();
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this,"Connection Error","Error",JOptionPane.ERROR_MESSAGE);
+           
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-     
+       
         try {
             int id_oper = Integer.parseInt(id.getText());
             c=security.getConnection();
@@ -194,12 +185,12 @@ public class edit extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "DELETED SUCCESSFULLY", "Success", JOptionPane.INFORMATION_MESSAGE);
                 show user = new show();
                 user.setVisible(true);
-                user.setLocation(400, 250);
-                user.setSize(500,350);
+                user.setLocation(400, 300);
+                user.setSize(420, 280);
                 this.dispose();
             }
         } catch (SQLException ex) {
-          JOptionPane.showMessageDialog(this,"Connection Error","Error",JOptionPane.ERROR_MESSAGE);
+           
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 

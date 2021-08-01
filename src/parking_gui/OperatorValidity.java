@@ -35,7 +35,7 @@ public class OperatorValidity extends javax.swing.JFrame {
         panel1 = new javax.swing.JPanel();
         Entry = new javax.swing.JLabel();
         panel2 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        exit = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -74,15 +74,18 @@ public class OperatorValidity extends javax.swing.JFrame {
         panel2.setBackground(new java.awt.Color(197, 109, 21));
         panel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("                Exit Station");
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        exit.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        exit.setForeground(new java.awt.Color(255, 255, 255));
+        exit.setText("                Exit Station");
+        exit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exitMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel3MouseEntered(evt);
+                exitMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel3MouseExited(evt);
+                exitMouseExited(evt);
             }
         });
 
@@ -90,11 +93,11 @@ public class OperatorValidity extends javax.swing.JFrame {
         panel2.setLayout(panel2Layout);
         panel2Layout.setHorizontalGroup(
             panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+            .addComponent(exit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
         );
         panel2Layout.setVerticalGroup(
             panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(exit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -140,13 +143,13 @@ public void resetColor(JPanel p1)
        resetColor(panel1);
     }//GEN-LAST:event_EntryMouseExited
 
-    private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
+    private void exitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitMouseEntered
        setColor(panel2);
-    }//GEN-LAST:event_jLabel3MouseEntered
+    }//GEN-LAST:event_exitMouseEntered
 
-    private void jLabel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseExited
+    private void exitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitMouseExited
          resetColor(panel2);
-    }//GEN-LAST:event_jLabel3MouseExited
+    }//GEN-LAST:event_exitMouseExited
 
     private void EntryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EntryMouseClicked
        if(evt.getSource()==Entry){
@@ -155,10 +158,22 @@ public void resetColor(JPanel p1)
            et.setVisible(true);
            et.setSize(570,350);
            et.setResizable(false);
-           et.setLocation(400,250);
+           et.setLocation(400,150);
            this.dispose();
        }
     }//GEN-LAST:event_EntryMouseClicked
+
+    private void exitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitMouseClicked
+       if(evt.getSource()==exit){
+          Payment p=new Payment();
+           p.setTitle("Exit Station");
+           p.setVisible(true);
+           p.setSize(520,480);
+           p.setResizable(false);
+           p.setLocation(400,250);
+           this.dispose();
+       }
+    }//GEN-LAST:event_exitMouseClicked
 
     /**
      * @param args the command line arguments
@@ -197,8 +212,8 @@ public void resetColor(JPanel p1)
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Entry;
+    private javax.swing.JLabel exit;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel panel1;
     private javax.swing.JPanel panel2;

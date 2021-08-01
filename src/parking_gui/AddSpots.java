@@ -74,13 +74,19 @@ public class AddSpots extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel2.setText("Number Of Floors");
         jLabel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 150, 40));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 160, 40));
         getContentPane().add(floors, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 280, 40));
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel3.setText("Number Of Spots");
         jLabel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 184, 150, 40));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 160, 40));
+
+        spots.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                spotsActionPerformed(evt);
+            }
+        });
         getContentPane().add(spots, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, 280, 40));
 
         back.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -91,7 +97,7 @@ public class AddSpots extends javax.swing.JFrame {
                 backActionPerformed(evt);
             }
         });
-        getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 120, 30));
+        getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, 120, 30));
 
         exit.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Parking_GUI/blue-cross-icon.png"))); // NOI18N
@@ -101,26 +107,31 @@ public class AddSpots extends javax.swing.JFrame {
                 exitActionPerformed(evt);
             }
         });
-        getContentPane().add(exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, 120, 30));
+        getContentPane().add(exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 290, 120, 30));
 
         add.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        add.setIcon(new javax.swing.ImageIcon("D:\\tab-add-icon.png")); // NOI18N
         add.setText("Add");
         add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addActionPerformed(evt);
             }
         });
-        getContentPane().add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, 250, 30));
+        getContentPane().add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 250, 250, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
        if(evt.getSource()==add){
-           Station.createParking(Integer.parseInt(floors.getText()),Integer.parseInt(spots.getText()));
+           admin_DDL d=new admin_DDL();
+         int result= d.addSpots(Integer.parseInt(floors.getText()),Integer.parseInt(spots.getText()));
+         if(result!=0){
            JOptionPane.showMessageDialog(this,"Spots Added","success",JOptionPane.INFORMATION_MESSAGE);
        }
+         else 
+              JOptionPane.showMessageDialog(this,"Sorry You Can't Add,Spots Already Exist","Faild",JOptionPane.INFORMATION_MESSAGE);
+       }
+       
     }//GEN-LAST:event_addActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
@@ -140,6 +151,10 @@ public class AddSpots extends javax.swing.JFrame {
           System.exit(0);
       }
     }//GEN-LAST:event_exitActionPerformed
+
+    private void spotsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_spotsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_spotsActionPerformed
 
     /**
      * @param args the command line arguments

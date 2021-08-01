@@ -1,39 +1,19 @@
 package Parking_GUI;
 
-
-import java.sql.Statement;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.ResultSet;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
-
 public class show extends javax.swing.JFrame {
-    static Connection c;
-    static Statement st;
-
+    
     
     DefaultTableModel dtm=new DefaultTableModel();
     public show() {
-               
-        try {
-            initComponents();
+        initComponents();
             jTable1.setModel(dtm);
             dtm.addColumn("id");
             dtm.addColumn("username");
             dtm.addColumn("start_shift");
             dtm.addColumn("end_shift");
-            c=security.getConnection();
-            st = c.createStatement();
-            String query="select * from operators";
-            ResultSet r=st.executeQuery(query);
-            while(r.next()){
-                dtm.addRow(new Object[] {r.getInt("id"),r.getString("username"),r.getInt("start_shift"),r.getInt("end_shift")});
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this,"Connection Error","Error",JOptionPane.ERROR_MESSAGE);
-        }
+            admin_DDL.showOperator(dtm);
+
     }
 
     /**
@@ -49,7 +29,6 @@ public class show extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
 
         FormListener formListener = new FormListener();
 
@@ -69,49 +48,34 @@ public class show extends javax.swing.JFrame {
         table.setViewportView(jTable1);
 
         jButton1.setBackground(new java.awt.Color(204, 255, 255));
-        jButton1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jButton1.setText("Update or Delete");
         jButton1.addActionListener(formListener);
 
         jButton2.setBackground(new java.awt.Color(204, 255, 255));
-        jButton2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton2.setText("Exit");
+        jButton2.setText("Back");
         jButton2.addActionListener(formListener);
-
-        jButton3.setBackground(new java.awt.Color(204, 240, 240));
-        jButton3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton3.setText("Back");
-        jButton3.addMouseListener(formListener);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(table, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addComponent(table, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(104, 104, 104)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(45, 45, 45)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(table, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addGap(0, 11, Short.MAX_VALUE))
         );
 
         pack();
@@ -119,7 +83,7 @@ public class show extends javax.swing.JFrame {
 
     // Code for dispatching events from components to event handlers.
 
-    private class FormListener implements java.awt.event.ActionListener, java.awt.event.MouseListener {
+    private class FormListener implements java.awt.event.ActionListener {
         FormListener() {}
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             if (evt.getSource() == jButton1) {
@@ -129,49 +93,27 @@ public class show extends javax.swing.JFrame {
                 show.this.jButton2ActionPerformed(evt);
             }
         }
-
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            if (evt.getSource() == jButton3) {
-                show.this.jButton3MouseClicked(evt);
-            }
-        }
-
-        public void mouseEntered(java.awt.event.MouseEvent evt) {
-        }
-
-        public void mouseExited(java.awt.event.MouseEvent evt) {
-        }
-
-        public void mousePressed(java.awt.event.MouseEvent evt) {
-        }
-
-        public void mouseReleased(java.awt.event.MouseEvent evt) {
-        }
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int row = jTable1.getSelectedRow();
         int id =(int) jTable1.getValueAt(row, 0);
         edit info=new edit(id);
-        info.setLocation(500,250);
-        info.setSize(400, 370);
+        info.setLocation(400, 300);
+        info.setSize(370, 370);
         info.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        System.exit(0);
+        AdminValidity d=new AdminValidity();
+        d.setTitle("AdminValidity");
+        d.setVisible(true);
+        d.setSize(585,400);
+        d.setResizable(false);
+        d.setLocation(450,200);
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-       AdminValidity d=new AdminValidity();
-           d.setTitle("AdminValidity");
-           d.setVisible(true);
-           d.setSize(585,400);
-           d.setResizable(false);
-           d.setLocation(400,150);
-           this.dispose();
-    }//GEN-LAST:event_jButton3MouseClicked
 
     /**
      * @param args the command line arguments
@@ -212,7 +154,6 @@ public class show extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JTable jTable1;
     private javax.swing.JScrollPane table;
     // End of variables declaration//GEN-END:variables
